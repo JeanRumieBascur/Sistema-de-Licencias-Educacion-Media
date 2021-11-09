@@ -1,0 +1,212 @@
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Docmed</title>
+    <meta name="description" content="">
+    <script src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js" ></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- <link rel="manifest" href="site.webmanifest"> -->
+    <link rel="shortcut icon" type="image/x-icon" href="../img/favicon.png">
+    <!-- Place favicon.ico in the root directory -->
+
+    <!-- CSS here -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../css/magnific-popup.css">
+    <link rel="stylesheet" href="../css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/themify-icons.css">
+    <link rel="stylesheet" href="../css/nice-select.css">
+    <link rel="stylesheet" href="../css/flaticon.css">
+    <link rel="stylesheet" href="../css/gijgo.css">
+    <link rel="stylesheet" href="../css/animate.css">
+    <link rel="stylesheet" href="../css/slicknav.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <!-- <link rel="stylesheet" href="css/responsive.css"> -->
+</head>
+
+<body id="body" onload="See()">
+   <script type="text/javascript">
+    function Show(){
+        var elemnt = document.getElementById('licence');
+        html2pdf().set({margin:1, filename: 'Certificado.pdf'}).from(elemnt).save();
+        
+    }
+    function See(){
+        var truefalse=document.getElementById('truefalse').value;
+        var search=document.getElementById('search').value
+
+    
+        if(truefalse!="false"){
+            if(search==""){
+            swal("¡BUSCADOR VACÍO","Ingresa un RUT","error");
+            return false;
+        }
+        if(search.length == 9 ){
+            swal("RUT NO VALIDO","Recuerde escribir el guión para el número verificador", "error");
+            return false;
+
+        }
+        if(search.length < 10 || search.length >12 || search.length == 11){
+            swal("RUT NO VALIDO","Ingrese un rut valido","error");
+            return false;
+        }
+        else{
+            
+            document.getElementById('licence').style.display='block';
+            
+            }
+        }
+    }
+
+
+
+    </script>
+    <header>
+        <div class="header-area ">
+            
+            <div id="sticky-header" class="main-header-area">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-xl-3 col-lg-2">
+                            <div class="logo">
+                                <a asp-action="Index" asp-controller="Admin">
+                                    <img src="../img/logo.svg" alt="">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-7">
+                            <div class="main-menu  d-none d-lg-block">
+                                @{
+                            Student st1= new Student();
+                            Boolean valuepdfbtn=false;
+                            if(ViewBag.Students!=null){  
+                                st1=ViewBag.Students;
+                                    <input  onclick="Show()" href="#test-form" type="submit" id="truefalse" value="DESCARGAR PDF" style="display: block; background: #a20b01ff; font-size: 14px; padding: 15px; margin-top:10px; margin-left:80px; border: none; color: white; border-radius: 5% ;">
+                                    valuepdfbtn=true;
+                                }
+                                else{
+                                    <input class="book_btnpdf" id="truefalse" value="false" style="display: none;"> 
+                                
+                                }  
+                                }       
+                            </div>
+                        </div>
+                        
+                        <div class="col-xl-3 col-lg-3 d-none d-lg-block">
+                            <div class="Appointment">
+                                <div class="book_btn d-none d-lg-block">
+                                    <a class="popup-with-form" asp-action="Return" asp-controller="Admin">VOLVER</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="mobile_menu d-block d-lg-none"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- welcome_docmed_area_start -->
+    <div id="welcome_docmed_area" class="welcome_docmed_area">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-6 col-lg-6">
+                    <div class="welcome_thumb">
+                        
+                       
+                        <div id="licence" class="licence">
+                         <div class="redcolum"></div>
+                         <div class="redcolumlite"></div>
+                         <img class="isglicence" src="../img/logolicencia.svg" style="width: 30%; margin-left: 20px; margin-top:30px">
+                                   
+                         <p class="titlelicence">CERTIFICADO DE LICENCIA DE EDUCACIÓN MEDIA <br> @st1.teaching_stud<br></p>
+                         <p class="bodylicence">Certifico que,  según consta en el  registro respectivo Nº @st1.number_stud año @st1.year_stud, se otorgó Licencia de Educación Media a <br><br>
+                                                Don(a): @st1.name_stud @st1.lastname_stud @st1.mlastname_stud<br><br>
+                                                Quien aprobó el Cuarto de Enseñanza Media de esta modalidad en el Liceo Domingo Santa María de Arica, Decreto Cooperador de la función Educacional del Estado Nº 211 fecha 30 de marzo de 1982.
+                                                </p>
+                        <p class="directfirm">——————————————————————————<br> Mercedes Corrales Salas <br> Directora</p>
+                        <p class="datelicence">Arica, diciembre de @st1.year_stud</p>
+                            
+                        </div>
+                        
+                    </div>
+                        
+                </div>
+                        
+                
+                <div class="col-xl-6 col-lg-6">
+                    <div class="welcome_docmed_info">
+                        <h2>Generar licencias</h2>
+                        <h3>Crea certificados de licencia 4° Medio</h3>
+                        <p>Puedes generar los cerfificados de un alumnos buscando por su RUT.</p>
+                       
+                        @model Student
+                        <form asp-action="Createcertificate" asp-controller="Admin" method="post">
+        
+                        <div class="box">
+                            <div class="container-4">
+                            <input type="search" id="search" asp-for="rut_stud" placeholder="Busca RUT..." />
+                            <span asp-validation-for="rut_stud"></span>
+                            <button class="icon" onclick="return See()"><i class="fa fa-search"></i></button>
+                        </div>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- welcome_docmed_area_end -->
+ <script src="js/vendor/modernizr-3.5.0.min.js"></script>
+    <script src="js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    
+    <script src="js/ajax-form.js"></script>
+    <script src="js/waypoints.min.js"></script>
+    <script src="js/jquery.counterup.min.js"></script>
+    <script src="js/imagesloaded.pkgd.min.js"></script>
+    <script src="js/scrollIt.js"></script>
+    <script src="js/jquery.scrollUp.min.js"></script>
+    <script src="js/wow.min.js"></script>
+    <script src="js/nice-select.min.js"></script>
+    <script src="js/jquery.slicknav.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/plugins.js"></script>
+    <script src="js/gijgo.min.js"></script>
+    <!--contact js-->
+    <script src="js/contact.js"></script>
+    <script src="js/jquery.ajaxchimp.min.js"></script>
+    <script src="js/jquery.form.js"></script>
+    <script src="js/jquery.validate.min.js"></script>
+    <script src="js/mail-script.js"></script>
+
+    <script src="js/main.js"></script>
+    <script>
+        $('#datepicker').datepicker({
+            iconsLibrary: 'fontawesome',
+            icons: {
+                rightIcon: '<span class="fa fa-caret-down"></span>'
+            }
+        });
+        $('#datepicker2').datepicker({
+            iconsLibrary: 'fontawesome',
+            icons: {
+                rightIcon: '<span class="fa fa-caret-down"></span>'
+            }
+
+        });
+    $(document).ready(function() {
+    $('.js-example-basic-multiple').select2();
+});
+    </script>
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</body>
+</html>
